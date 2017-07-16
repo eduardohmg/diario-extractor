@@ -11,6 +11,7 @@ import static com.transprenciajoinville.diarioextractor.statics.Patterns.RUA;
 import static java.util.Arrays.asList;
 import static java.util.regex.Pattern.compile;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -24,6 +25,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	private static final String PAGE_HEADER = "\n\n\n\n" + "CÂMARA DE VEREADORES DE JOINVILLE " + "\n\n" + "ESTADO DE SANTA CATARINA ";
 	private String text;
 
+	// FIXME This method is too long
 	@Override
 	public List<Indicacao> extractFromText(final String raw) {
 		this.text = raw;
@@ -41,9 +43,11 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		for (String indicacaoText : indicacoesText) {
 			Indicacao indicacao = extractIndicacao(indicacaoText);
 			indicacoes.add(indicacao);
+			// FIXME Remove sysout
 			System.out.println(indicacao.toString());
 		}
 
+		// FIXME Remove sysout
 		System.out.println("Qtde: " + indicacoes.size());
 
 		return indicacoes;
@@ -83,6 +87,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		return new ArrayList<>(asList(arrayResult));
 	}
 
+	// FIXME This method is too long
 	private Indicacao extractIndicacao(String raw) {
 
 		Indicacao indicacao = Indicacao.builder().build();
@@ -145,7 +150,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		if (matcherBairro.find()) {
 			String bairroRaw = raw.substring(matcherBairro.start());
 			for (String bairro : BAIRROS)
-				if (bairroRaw.toUpperCase().contains(bairro.toUpperCase()))
+				if (cleanBairro(bairroRaw).contains(cleanBairro(bairro)))
 					return bairro;
 		}
 
@@ -157,8 +162,11 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		String[] indSplit = raw.split(" - ");
 
 		boolean canAdd = false;
+
 		for (int i = 3; i < indSplit.length; i++) {
 			boolean achou = false;
+			// FIXME Extract FOR loop
+			// FIXME Reduce cyclomatic complexity
 			for (String nome : VEREADORES) {
 				if (indSplit[i].toUpperCase().contains(nome.toUpperCase())) {
 					achou = true;
@@ -174,7 +182,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		return descricao.trim();
 	}
 
-	private String extractRua(String raw) {
+	private String extractRua(final String raw) {
 		String rua = "";
 
 		Matcher matcherRua = RUA.matcher(raw);
@@ -189,5 +197,14 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		}
 
 		return rua;
+	}
+
+	private String withoutAccentuation(final String text) {
+		return Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+	}
+
+	// FIXME Give a better name to this method
+	private String cleanBairro(final String bairro) {
+		return withoutAccentuation(bairro).toUpperCase();
 	}
 }

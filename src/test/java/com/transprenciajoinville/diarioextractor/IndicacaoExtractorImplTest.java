@@ -18,6 +18,7 @@ import com.transprenciajoinville.diarioextractor.indicacao.Indicacao;
 import com.transprenciajoinville.diarioextractor.indicacao.IndicacaoExtractor;
 import com.transprenciajoinville.diarioextractor.pdfextractor.PDFToText;
 
+// FIXME Make tests for more cases
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class IndicacaoExtractorImplTest {
@@ -46,5 +47,23 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacoes.size(), equalTo(170));
 		
 		assertThat(indicacoes.get(6).equals(completeIndicacao), equalTo(true));
+	}
+	
+	@Test
+	public void withAccentuation() {
+		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/main/resources/pdfs/Diário");
+
+		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
+		
+		Indicacao completeIndicacao = Indicacao.builder().numero("8552/2017") //
+				.vereadores(asList("Wilson Paraiba")) //
+				.descricao("Operação tapa-buraco na Rua dos Tucanos, nas proximidades do nº 392 e 408, no Bairro Jardim Iririu.") //
+				.rua("dos Tucanos") //
+				.bairro("Jardim Iririú") //
+				.build();
+
+		assertThat(indicacoes.size(), equalTo(170));
+		
+		assertThat(indicacoes.get(21).equals(completeIndicacao), equalTo(true));
 	}
 }
