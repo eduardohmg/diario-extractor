@@ -15,6 +15,7 @@ public class Indicacao {
 	private String descricao;
 	private String rua;
 	private String bairro;
+	// FIXME Add "justificativa" and find and extract it from pdf
 
 	public void addVereador(String vereador) {
 		if (this.vereadores == null)
