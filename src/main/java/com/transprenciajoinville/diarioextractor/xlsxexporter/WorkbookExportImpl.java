@@ -60,12 +60,9 @@ public class WorkbookExportImpl implements WorkbookExport {
 			colnum++; // Ignoring date column
 
 			cell = row.createCell(colnum++);
-			String vereadores = "";
+			String vereadores = vereadoresToString(ind.getVereadores());
 
-			for (String vereador : ind.getVereadores())
-				vereadores += vereador + " - ";
-
-			cell.setCellValue(vereadores.substring(0, vereadores.length() - 3));
+			cell.setCellValue(vereadores);
 
 			cell = row.createCell(colnum++);
 			cell.setCellValue(ind.getDescricao());
@@ -84,5 +81,19 @@ public class WorkbookExportImpl implements WorkbookExport {
 			sheet.autoSizeColumn(i);
 
 		return workbook;
+	}
+
+	private String vereadoresToString(List<String> vereadores) {
+		String text = "";
+
+		if (vereadores.isEmpty())
+			return "";
+
+		for (String vereador : vereadores)
+			text += vereador + " - ";
+
+		text = text.substring(0, text.length() - 3);
+
+		return text;
 	}
 }

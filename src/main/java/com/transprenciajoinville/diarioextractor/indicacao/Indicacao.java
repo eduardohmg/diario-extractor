@@ -3,15 +3,24 @@ package com.transprenciajoinville.diarioextractor.indicacao;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Indicacao {
 
 	private String numero;
+
+	@Getter(AccessLevel.NONE)
 	private List<String> vereadores;
+
 	private String descricao;
 	private String rua;
 	private String bairro;
@@ -21,6 +30,12 @@ public class Indicacao {
 		if (this.vereadores == null)
 			setVereadores(new ArrayList<>());
 		this.vereadores.add(vereador);
+	}
+
+	public List<String> getVereadores() {
+		if (this.vereadores == null)
+			this.vereadores = new ArrayList<>();
+		return this.vereadores;
 	}
 
 	@Override

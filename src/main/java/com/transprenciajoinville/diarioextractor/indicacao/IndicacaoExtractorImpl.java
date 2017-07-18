@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
+// FIXME Organize this class
 @Component(value = "IndicacaoExtractorImpl")
 public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 
@@ -90,7 +91,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	// FIXME This method is too long
 	private Indicacao extractIndicacao(String raw) {
 
-		Indicacao indicacao = Indicacao.builder().build();
+		Indicacao indicacao = new Indicacao();
 
 		int fim = 0;
 
@@ -182,6 +183,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		return descricao.trim();
 	}
 
+	// FIXME Sometimes it has more than one street
 	private String extractRua(final String raw) {
 		String rua = "";
 

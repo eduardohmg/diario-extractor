@@ -18,6 +18,7 @@ import com.transprenciajoinville.diarioextractor.xlsxexporter.WorkbookExportImpl
 import com.transprenciajoinville.diarioextractor.xlsxexporter.WorkbookFileWriter;
 import com.transprenciajoinville.diarioextractor.xlsxexporter.WorkbookFileWriterImpl;
 
+// FIXME Translate all generic to english
 @SpringBootApplication
 public class Main {
 
@@ -25,7 +26,7 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 
 		PDFToText pdfExtractor = new PDFToTextImpl();
-		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/main/resources/pdfs/Diário");
+		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/Diário");
 
 		IndicacaoExtractor extractor = new IndicacaoExtractorImpl();
 		List<Indicacao> indicacoes = extractor.extractFromText(diarioText);
