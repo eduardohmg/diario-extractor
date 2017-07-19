@@ -38,11 +38,11 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		removeAllBeforeIndicacoes();
 		removeHeaders();
 		removeAdendo();
-		removeAllAfterIndicacoes();
+		tryToRemoveAllAfterIndicacoes();
 
 		List<String> indicacoesText = splitIndicacoes();
 		indicacoesText = removeFirst(indicacoesText);
-
+		indicacoesText = cleanLast(indicacoesText);
 		List<Indicacao> indicacoes = new ArrayList<>();
 
 		for (String indicacaoText : indicacoesText) {
@@ -58,7 +58,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		return indicacoes;
 	}
 
-	private void removeAllAfterIndicacoes() {
+	private void tryToRemoveAllAfterIndicacoes() {
 		Matcher matcherMateriaOrderm = MATERIA_ORDEM.matcher(text);
 
 		if (matcherMateriaOrderm.find())
@@ -199,10 +199,10 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 			int firstComma = raw.substring(matcherRua.start()).indexOf(",");
 
 			if (firstComma > 0)
-				rua = rua.substring(0, raw.substring(matcherRua.start()).indexOf(",")).substring(4);
+				rua = rua.substring(0, raw.substring(matcherRua.start()).indexOf(",")).substring(3);
 		}
 
-		return rua;
+		return rua.trim();
 	}
 
 	private String withoutAccentuation(final String text) {
@@ -212,5 +212,24 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	// FIXME Give a better name to this method
 	private String cleanBairro(final String bairro) {
 		return withoutAccentuation(bairro).toUpperCase();
+	}
+	
+	// FIXME There is a bug. It's removing things that shouldn't do
+	// FIXME Give better name and think more about the parameter and return
+	private List<String> cleanLast(final List<String> raws) {
+		List<String> indicacoes = new ArrayList<>(raws);
+		
+		String last = indicacoes.get(indicacoes.size() - 1);
+		
+		Pattern pattern = compile("\\s\\s(?!N°)");
+		Matcher matcher = pattern.matcher(last);
+		
+		if(matcher.find())
+			last = last.substring(0, matcher.start());
+		
+		indicacoes.remove(indicacoes.size() - 1);
+		indicacoes.add(last);
+		
+		return indicacoes;
 	}
 }

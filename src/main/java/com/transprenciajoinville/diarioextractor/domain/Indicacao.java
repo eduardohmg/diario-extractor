@@ -28,6 +28,7 @@ public class Indicacao {
 	private List<Rua> ruas;
 	private String bairro;
 	// FIXME Add "justificativa" and find and extract it from pdf
+	// FIXME Add "date" and extract it
 
 	public void addVereador(Vereador vereador) {
 		if (this.vereadores == null)
@@ -46,8 +47,8 @@ public class Indicacao {
 		String indicacao = getNumber() + " - ";
 
 		indicacao += vereadoresToString();
-		indicacao += getDescricao();
-		indicacao += ruasToString();
+		indicacao += " - " + getDescricao();
+		indicacao += " - " + ruasToString();
 
 		indicacao += " - " + getBairro();
 

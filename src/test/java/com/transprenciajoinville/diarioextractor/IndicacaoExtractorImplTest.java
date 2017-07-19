@@ -34,7 +34,7 @@ public class IndicacaoExtractorImplTest {
 	private IndicacaoExtractor indicacaoExtractor;
 
 	@Test
-	public void sample() {
+	public void sampleOne() {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário");
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
@@ -67,5 +67,23 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacoes.size(), equalTo(170));
 		
 		assertThat(indicacoes.get(21).equals(completeIndicacao), equalTo(true));
+	}
+	
+	@Test
+	public void SampleTwo() {
+		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");
+
+		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
+		
+		Indicacao completeIndicacao = Indicacao.builder().number("9262/2017") //
+				.vereadores(asList(Vereador.builder().name("Fábio Dalonso").build())) //
+				.descricao("Pintura de sinalização horizontal, em toda a extensão da RuaAgostinho José Cognaco,no Bairro Costa e silva.") //
+				.ruas(asList(Rua.builder().name("Agostinho José Cognaco").build())) //
+				.bairro("Costa e Silva") //
+				.build();
+
+		assertThat(indicacoes.size(), equalTo(162));
+		
+		assertThat(indicacoes.get(161).equals(completeIndicacao), equalTo(true));
 	}
 }
