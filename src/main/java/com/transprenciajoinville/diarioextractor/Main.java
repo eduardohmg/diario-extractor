@@ -8,7 +8,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.transprenciajoinville.diarioextractor.indicacao.Indicacao;
+import com.transprenciajoinville.diarioextractor.domain.Indicacao;
 import com.transprenciajoinville.diarioextractor.indicacao.IndicacaoExtractor;
 import com.transprenciajoinville.diarioextractor.indicacao.IndicacaoExtractorImpl;
 import com.transprenciajoinville.diarioextractor.pdfextractor.PDFToText;

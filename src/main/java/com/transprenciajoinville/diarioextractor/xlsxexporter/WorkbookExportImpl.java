@@ -8,7 +8,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.transprenciajoinville.diarioextractor.indicacao.Indicacao;
+import com.transprenciajoinville.diarioextractor.domain.Indicacao;
 
 // FIXME Write unit tests
 public class WorkbookExportImpl implements WorkbookExport {
@@ -55,12 +55,12 @@ public class WorkbookExportImpl implements WorkbookExport {
 			colnum = 1; // Ignoring diary number
 
 			cell = row.createCell(colnum++);
-			cell.setCellValue(ind.getNumero());
+			cell.setCellValue(ind.getNumber());
 
 			colnum++; // Ignoring date column
 
 			cell = row.createCell(colnum++);
-			String vereadores = vereadoresToString(ind.getVereadores());
+			String vereadores = ind.vereadoresToString();
 
 			cell.setCellValue(vereadores);
 
@@ -68,10 +68,10 @@ public class WorkbookExportImpl implements WorkbookExport {
 			cell.setCellValue(ind.getDescricao());
 
 			cell = row.createCell(colnum++);
-			cell.setCellValue(ind.getRua());
+			cell.setCellValue(ind.ruasToString());
 
 			// FIXME Think a way to extract obs
-			colnum++; // Ignoring obs column
+			colnum++; // Ignoring "obs" column
 
 			cell = row.createCell(colnum++);
 			cell.setCellValue(ind.getBairro());
@@ -81,19 +81,5 @@ public class WorkbookExportImpl implements WorkbookExport {
 			sheet.autoSizeColumn(i);
 
 		return workbook;
-	}
-
-	private String vereadoresToString(List<String> vereadores) {
-		String text = "";
-
-		if (vereadores.isEmpty())
-			return "";
-
-		for (String vereador : vereadores)
-			text += vereador + " - ";
-
-		text = text.substring(0, text.length() - 3);
-
-		return text;
 	}
 }

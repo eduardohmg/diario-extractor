@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.transprenciajoinville.diarioextractor.indicacao.Indicacao;
+import com.transprenciajoinville.diarioextractor.domain.Indicacao;
 
 public interface WorkbookExport {
 

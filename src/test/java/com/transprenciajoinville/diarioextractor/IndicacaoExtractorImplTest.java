@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.transprenciajoinville.diarioextractor.indicacao.Indicacao;
+import com.transprenciajoinville.diarioextractor.domain.Indicacao;
+import com.transprenciajoinville.diarioextractor.domain.Rua;
+import com.transprenciajoinville.diarioextractor.domain.Vereador;
 import com.transprenciajoinville.diarioextractor.indicacao.IndicacaoExtractor;
 import com.transprenciajoinville.diarioextractor.pdfextractor.PDFToText;
 
@@ -37,10 +39,10 @@ public class IndicacaoExtractorImplTest {
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
 		
-		Indicacao completeIndicacao = Indicacao.builder().numero("8422/2017") //
-				.vereadores(asList("Pelé")) //
+		Indicacao completeIndicacao = Indicacao.builder().number("8422/2017") //
+				.vereadores(asList(Vereador.builder().name("Pelé").build())) //
 				.descricao("Substituição de tampa da boca de lobo na Rua Antônio do Livramento, em frente ao Nº 284, no Bairro Espinheiros.") //
-				.rua("Antônio do Livramento") //
+				.ruas(asList(Rua.builder().name("Antônio do Livramento").build())) //
 				.bairro("Espinheiros") //
 				.build();
 
@@ -55,10 +57,10 @@ public class IndicacaoExtractorImplTest {
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
 		
-		Indicacao completeIndicacao = Indicacao.builder().numero("8552/2017") //
-				.vereadores(asList("Wilson Paraiba")) //
+		Indicacao completeIndicacao = Indicacao.builder().number("8552/2017") //
+				.vereadores(asList(Vereador.builder().name("Wilson Paraiba").build())) //
 				.descricao("Operação tapa-buraco na Rua dos Tucanos, nas proximidades do nº 392 e 408, no Bairro Jardim Iririu.") //
-				.rua("dos Tucanos") //
+				.ruas(asList(Rua.builder().name("dos Tucanos").build())) //
 				.bairro("Jardim Iririú") //
 				.build();
 

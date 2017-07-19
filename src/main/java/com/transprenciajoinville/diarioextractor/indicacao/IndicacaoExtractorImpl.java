@@ -19,6 +19,10 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
+import com.transprenciajoinville.diarioextractor.domain.Indicacao;
+import com.transprenciajoinville.diarioextractor.domain.Rua;
+import com.transprenciajoinville.diarioextractor.domain.Vereador;
+
 // FIXME Organize this class
 @Component(value = "IndicacaoExtractorImpl")
 public class IndicacaoExtractorImpl implements IndicacaoExtractor {
@@ -110,11 +114,11 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		for (String vereador : vereadores) {
 			for (String nome : VEREADORES)
 				if (vereador.toUpperCase().contains(nome.toUpperCase()))
-					indicacao.addVereador(nome);
+					indicacao.addVereador(Vereador.builder().name(nome).build()); // FIXME Get active vereador from the db by name
 		}
 
 		String numero = extractNumber(raw);
-		indicacao.setNumero(numero);
+		indicacao.setNumber(numero);
 
 		raw = removeSpaceAndBreakLines(raw);
 
@@ -122,7 +126,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		indicacao.setDescricao(descricao);
 
 		String rua = extractRua(raw);
-		indicacao.setRua(rua);
+		indicacao.setRuas(asList(Rua.builder().name(rua).build())); // FIXME Verify if already exists this street e create method add
 
 		String bairro = extractBairro(raw);
 		indicacao.setBairro(bairro);
