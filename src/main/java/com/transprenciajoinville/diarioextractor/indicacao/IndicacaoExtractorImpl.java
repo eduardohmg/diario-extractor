@@ -206,7 +206,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	}
 
 	private String withoutAccentuation(final String text) {
-		return Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+		return Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", ""); // This string can be extracted and have a good name
 	}
 
 	// FIXME Give a better name to this method
@@ -221,7 +221,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		
 		String last = indicacoes.get(indicacoes.size() - 1);
 		
-		Pattern pattern = compile("\\s\\s(?!N°)");
+		Pattern pattern = compile("\\s\\s(?!N°)"); // FIXME This pattern can be extracted and have a good name
 		Matcher matcher = pattern.matcher(last);
 		
 		if(matcher.find())

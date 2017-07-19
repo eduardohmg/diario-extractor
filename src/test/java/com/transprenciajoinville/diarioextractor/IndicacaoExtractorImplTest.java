@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,7 @@ public class IndicacaoExtractorImplTest {
 	}
 	
 	@Test
-	public void SampleTwo() {
+	public void verifyLast() {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
@@ -85,5 +86,24 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacoes.size(), equalTo(162));
 		
 		assertThat(indicacoes.get(161).equals(completeIndicacao), equalTo(true));
+	}
+	
+	@Ignore
+	@Test
+	public void verifyLast2() {
+		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário");
+
+		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
+		
+		Indicacao completeIndicacao = Indicacao.builder().number("8944/2017") //
+				.vereadores(asList(Vereador.builder().name("Maurício Peixer").build())) //
+				.descricao("Roçada e recolhimento de entulhos na Rua Afonso Pena, próximo ao nº 235, no Bairro Bucarein.") //
+				.ruas(asList(Rua.builder().name("Afonso Pena").build())) //
+				.bairro("Bucarein") //
+				.build();
+
+		assertThat(indicacoes.size(), equalTo(170));
+		
+		assertThat(indicacoes.get(169).equals(completeIndicacao), equalTo(true));
 	}
 }

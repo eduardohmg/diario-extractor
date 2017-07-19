@@ -14,4 +14,5 @@ public class Vereador {
 	private long id;
 	private String name;
 	private boolean active;
+	// FIXME Extract partido
 }
