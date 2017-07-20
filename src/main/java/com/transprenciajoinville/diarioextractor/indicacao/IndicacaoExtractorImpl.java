@@ -42,7 +42,6 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 
 		List<String> indicacoesText = splitIndicacoes();
 		indicacoesText = removeFirst(indicacoesText);
-		indicacoesText = cleanLast(indicacoesText);
 		List<Indicacao> indicacoes = new ArrayList<>();
 
 		for (String indicacaoText : indicacoesText) {
@@ -212,24 +211,5 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	// FIXME Give a better name to this method
 	private String cleanBairro(final String bairro) {
 		return withoutAccentuation(bairro).toUpperCase();
-	}
-	
-	// FIXME There is a bug. It's removing things that shouldn't do
-	// FIXME Give better name and think more about the parameter and return
-	private List<String> cleanLast(final List<String> raws) {
-		List<String> indicacoes = new ArrayList<>(raws);
-		
-		String last = indicacoes.get(indicacoes.size() - 1);
-		
-		Pattern pattern = compile("\\s\\s(?!N°)"); // FIXME This pattern can be extracted and have a good name
-		Matcher matcher = pattern.matcher(last);
-		
-		if(matcher.find())
-			last = last.substring(0, matcher.start());
-		
-		indicacoes.remove(indicacoes.size() - 1);
-		indicacoes.add(last);
-		
-		return indicacoes;
 	}
 }

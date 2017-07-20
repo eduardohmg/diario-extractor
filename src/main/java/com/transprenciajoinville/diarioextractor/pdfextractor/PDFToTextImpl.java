@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.pdf.PDFParser;
+import org.apache.tika.parser.pdf.PDFParserConfig;
 import org.apache.tika.sax.BodyContentHandler;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +22,12 @@ public class PDFToTextImpl implements PDFToText {
 			BodyContentHandler handler = new BodyContentHandler(-1);
 			Metadata metadata = new Metadata();
 			ParseContext pcontext = new ParseContext();
+			
+			PDFParserConfig config = new PDFParserConfig();
+			config.setSortByPosition(true);
 
 			PDFParser pdfparser = new PDFParser();
+			pdfparser.setPDFParserConfig(config);
 			pdfparser.parse(inputstream, handler, metadata, pcontext);
 
 			resultText = handler.toString();
