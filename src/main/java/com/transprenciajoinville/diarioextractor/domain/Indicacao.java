@@ -45,7 +45,9 @@ public class Indicacao {
 
 	@Override
 	public String toString() {
-		String indicacao = getNumber() + " - ";
+		String indicacao = getNumber() + "/";
+				
+		indicacao += getYear() + " - ";
 
 		indicacao += vereadoresToString();
 		indicacao += " - " + getDescricao();
