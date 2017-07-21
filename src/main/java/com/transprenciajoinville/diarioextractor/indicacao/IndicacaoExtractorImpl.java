@@ -27,7 +27,7 @@ import com.transprenciajoinville.diarioextractor.domain.Vereador;
 @Component(value = "IndicacaoExtractorImpl")
 public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 
-	private static final String PAGE_HEADER = "\n\n\n\n" + "CÂMARA DE VEREADORES DE JOINVILLE " + "\n\n" + "ESTADO DE SANTA CATARINA ";
+	private static final String PAGE_HEADER = "\n\n\n\n" + "CÂMARA DE VEREADORES DE JOINVILLE\\s*" + "\n\n" + "ESTADO DE SANTA CATARINA";
 	private String text;
 
 	// FIXME This method is too long
@@ -71,7 +71,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	}
 
 	private void removeHeaders() {
-		text = text.replace(PAGE_HEADER, "");
+		text = text.replaceAll(PAGE_HEADER, "");
 	}
 
 	private void removeAllBeforeIndicacoes() {

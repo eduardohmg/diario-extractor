@@ -68,6 +68,42 @@ public class IndicacaoExtractorImplTest {
 
 		assertThat(indicacoes.get(21).equals(completeIndicacao), equalTo(true));
 	}
+	
+	@Test
+	public void verifyIfDeletedHeaderCorrectly() {
+		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário");
+
+		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
+
+		Indicacao completeIndicacao = Indicacao.builder().number("8532/2017") //
+				.vereadores(asList(Vereador.builder().name("Fernando Krelling").build())) //
+				.descricao("Patrolamento da Rua Faustino Soares, em toda sua extensão, no Bairro Escolinha.") //
+				.ruas(asList(Rua.builder().name("Faustino Soares").build())) //
+				.bairro("Escolinha") //
+				.build();
+
+		assertThat(indicacoes.size(), equalTo(170));
+
+		assertThat(indicacoes.get(15).equals(completeIndicacao), equalTo(true));
+	}
+	
+	@Test
+	public void verifyIfDeletedHeaderCorrectly2() {
+		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");
+
+		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
+
+		Indicacao completeIndicacao = Indicacao.builder().number("8867/2017") //
+				.vereadores(asList(Vereador.builder().name("Pelé").build())) //
+				.descricao("Conserto de buraco no asfalto da Rua Prefeito Baltazar Buschle, em frenteao n° 630, no Bairro Comasa.") //
+				.ruas(asList(Rua.builder().name("Prefeito Baltazar Buschle").build())) //
+				.bairro("Comasa") //
+				.build();
+
+		assertThat(indicacoes.size(), equalTo(171));
+
+		assertThat(indicacoes.get(8).equals(completeIndicacao), equalTo(true));
+	}
 
 	@Test
 	public void verifyLast() {
