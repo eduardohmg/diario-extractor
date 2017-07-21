@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class IndicacaoExtractorImplTest {
 	}
 
 	@Test
-	public void withAccentuation() {
+	public void bairroWithAccentuation() {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário");
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
@@ -145,5 +146,25 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacoes.size(), equalTo(170));
 
 		assertThat(indicacoes.get(169).equals(completeIndicacao), equalTo(true));
+	}
+	
+	@Ignore
+	@Test
+	public void bairroWithoutSpaces() {
+		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");
+
+		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
+
+		Indicacao completeIndicacao = Indicacao.builder().number("8953") //
+				.year("2017") //
+				.vereadores(asList(Vereador.builder().name("Tânia Larson").build())) //
+				.descricao("Limpeza das bocas de lobo da Rua Heriberto Petry, no Bairro JoãoCosta.") //
+				.ruas(asList(Rua.builder().name("Afonso Pena").build())) //
+				.bairro("João Costa") //
+				.build();
+
+		assertThat(indicacoes.size(), equalTo(171));
+
+		assertThat(indicacoes.get(22).equals(completeIndicacao), equalTo(true));
 	}
 }
