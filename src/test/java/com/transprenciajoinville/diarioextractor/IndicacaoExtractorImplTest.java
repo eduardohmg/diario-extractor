@@ -39,7 +39,8 @@ public class IndicacaoExtractorImplTest {
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
 
-		Indicacao completeIndicacao = Indicacao.builder().number("8422/2017") //
+		Indicacao completeIndicacao = Indicacao.builder().number("8422") //
+				.year("2017") //
 				.vereadores(asList(Vereador.builder().name("Pelé").build())) //
 				.descricao("Substituição de tampa da boca de lobo na Rua Antônio do Livramento, em frente ao Nº 284, no Bairro Espinheiros.") //
 				.ruas(asList(Rua.builder().name("Antônio do Livramento").build())) //
@@ -57,7 +58,8 @@ public class IndicacaoExtractorImplTest {
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
 
-		Indicacao completeIndicacao = Indicacao.builder().number("8552/2017") //
+		Indicacao completeIndicacao = Indicacao.builder().number("8552") //
+				.year("2017") //
 				.vereadores(asList(Vereador.builder().name("Wilson Paraiba").build())) //
 				.descricao("Operação tapa-buraco na Rua dos Tucanos, nas proximidades do nº 392 e 408, no Bairro Jardim Iririu.") //
 				.ruas(asList(Rua.builder().name("dos Tucanos").build())) //
@@ -68,14 +70,15 @@ public class IndicacaoExtractorImplTest {
 
 		assertThat(indicacoes.get(21).equals(completeIndicacao), equalTo(true));
 	}
-	
+
 	@Test
 	public void verifyIfDeletedHeaderCorrectly() {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário");
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
 
-		Indicacao completeIndicacao = Indicacao.builder().number("8532/2017") //
+		Indicacao completeIndicacao = Indicacao.builder().number("8532") //
+				.year("2017") //
 				.vereadores(asList(Vereador.builder().name("Fernando Krelling").build())) //
 				.descricao("Patrolamento da Rua Faustino Soares, em toda sua extensão, no Bairro Escolinha.") //
 				.ruas(asList(Rua.builder().name("Faustino Soares").build())) //
@@ -86,14 +89,15 @@ public class IndicacaoExtractorImplTest {
 
 		assertThat(indicacoes.get(15).equals(completeIndicacao), equalTo(true));
 	}
-	
+
 	@Test
 	public void verifyIfDeletedHeaderCorrectly2() {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
 
-		Indicacao completeIndicacao = Indicacao.builder().number("8867/2017") //
+		Indicacao completeIndicacao = Indicacao.builder().number("8867") //
+				.year("2017") //
 				.vereadores(asList(Vereador.builder().name("Pelé").build())) //
 				.descricao("Conserto de buraco no asfalto da Rua Prefeito Baltazar Buschle, em frenteao n° 630, no Bairro Comasa.") //
 				.ruas(asList(Rua.builder().name("Prefeito Baltazar Buschle").build())) //
@@ -111,7 +115,8 @@ public class IndicacaoExtractorImplTest {
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
 
-		Indicacao completeIndicacao = Indicacao.builder().number("9262/2017") //
+		Indicacao completeIndicacao = Indicacao.builder().number("9262") //
+				.year("2017") //
 				.vereadores(asList(Vereador.builder().name("Fábio Dalonso").build())) //
 				.descricao("Pintura de sinalização horizontal, em toda a extensão da RuaAgostinho José Cognaco,no Bairro Costa e silva.") //
 				.ruas(asList(Rua.builder().name("Agostinho José Cognaco").build())) //
@@ -129,7 +134,8 @@ public class IndicacaoExtractorImplTest {
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
 
-		Indicacao completeIndicacao = Indicacao.builder().number("8944/2017") //
+		Indicacao completeIndicacao = Indicacao.builder().number("8944") //
+				.year("2017") //
 				.vereadores(asList(Vereador.builder().name("Maurício Peixer").build())) //
 				.descricao("Roçada e recolhimento de entulhos na Rua Afonso Pena, próximo ao nº 235, no Bairro Bucarein.") //
 				.ruas(asList(Rua.builder().name("Afonso Pena").build())) //

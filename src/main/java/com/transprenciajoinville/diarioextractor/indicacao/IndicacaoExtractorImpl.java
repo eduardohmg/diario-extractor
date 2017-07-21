@@ -116,8 +116,9 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 					indicacao.addVereador(Vereador.builder().name(nome).build()); // FIXME Get active vereador from the db by name
 		}
 
-		String numero = extractNumber(raw);
-		indicacao.setNumber(numero);
+		String numero[] = extractNumber(raw).split("/");
+		indicacao.setNumber(numero[0]);
+		indicacao.setYear(numero[1]);
 
 		raw = removeSpaceAndBreakLines(raw);
 

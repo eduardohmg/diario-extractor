@@ -30,6 +30,9 @@ public class WorkbookExportImpl implements WorkbookExport {
 
 		cell = row.createCell(colnum++);
 		cell.setCellValue("Número");
+		
+		cell = row.createCell(colnum++);
+		cell.setCellValue("Ano");
 
 		cell = row.createCell(colnum++);
 		cell.setCellValue("Data");
@@ -56,6 +59,9 @@ public class WorkbookExportImpl implements WorkbookExport {
 
 			cell = row.createCell(colnum++);
 			cell.setCellValue(ind.getNumber());
+			
+			cell = row.createCell(colnum++);
+			cell.setCellValue(ind.getYear());
 
 			colnum++; // Ignoring date column
 

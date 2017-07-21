@@ -20,6 +20,7 @@ public class Indicacao {
 
 	private long id;
 	private String number;
+	private String year;
 
 	@Getter(AccessLevel.NONE)
 	private List<Vereador> vereadores;
