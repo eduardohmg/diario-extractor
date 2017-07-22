@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,5 +151,23 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacao.getDescricao(), equalTo("Limpeza das bocas de lobo da Rua Heriberto Petry, no Bairro JoãoCosta."));
 		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Heriberto Petry").build())));
 		assertThat(indicacao.getBairro(), equalTo("João Costa"));
+	}
+	
+	@Ignore
+	@Test
+	public void moreThanOneStreet() {
+		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");
+
+		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
+		Indicacao indicacao = indicacoes.get(126);
+
+		assertThat(indicacoes.size(), equalTo(171));
+
+		assertThat(indicacao.getNumber(), equalTo("9089"));
+		assertThat(indicacao.getYear(), equalTo("2017"));
+		assertThat(indicacao.getVereadores(), equalTo(asList(Vereador.builder().name("Lioilson Corrêa").build())));
+		assertThat(indicacao.getDescricao(), equalTo("Solicitar limpeza de Rio entre as ruas Bernardo Rech, ElisabethRech a Juvenal Macedo, próximo aos prédios da MRV no bairro Paranaguamirim."));
+		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Bernardo Rech").build(), Rua.builder().name("ElisabethRech").build(), Rua.builder().name("Juvenal Macedo").build())));
+		assertThat(indicacao.getBairro(), equalTo("Paranaguamirim"));
 	}
 }
