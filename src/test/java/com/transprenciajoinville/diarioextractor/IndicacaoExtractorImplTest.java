@@ -153,6 +153,23 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacao.getBairro(), equalTo("João Costa"));
 	}
 	
+	@Test
+	public void bairroWrongWritten() {
+		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");
+
+		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
+		Indicacao indicacao = indicacoes.get(68);
+
+		assertThat(indicacoes.size(), equalTo(171));
+
+		assertThat(indicacao.getNumber(), equalTo("9004"));
+		assertThat(indicacao.getYear(), equalTo("2017"));
+		assertThat(indicacao.getVereadores(), equalTo(asList(Vereador.builder().name("Natanael Jordão").build())));
+		assertThat(indicacao.getDescricao(), equalTo("Ensaibramento e patrolamento da Rua Nara Leão, em toda asua extensão, no Bairro Ulisses Guimarães."));
+		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Nara Leão").build())));
+		assertThat(indicacao.getBairro(), equalTo("Ulysses Guimarães"));
+	}
+	
 	@Ignore
 	@Test
 	public void moreThanOneStreet() {
