@@ -8,6 +8,7 @@ import static com.transprenciajoinville.diarioextractor.statics.Patterns.INDICAC
 import static com.transprenciajoinville.diarioextractor.statics.Patterns.MATERIA_ORDEM;
 import static com.transprenciajoinville.diarioextractor.statics.Patterns.NUMBER;
 import static com.transprenciajoinville.diarioextractor.statics.Patterns.RUA;
+import static java.lang.Math.max;
 import static java.util.Arrays.asList;
 import static java.util.regex.Pattern.compile;
 
@@ -23,12 +24,16 @@ import com.transprenciajoinville.diarioextractor.domain.Indicacao;
 import com.transprenciajoinville.diarioextractor.domain.Rua;
 import com.transprenciajoinville.diarioextractor.domain.Vereador;
 
+import info.debatty.java.stringsimilarity.Levenshtein;
+
 // FIXME Organize this class
 @Component(value = "IndicacaoExtractorImpl")
 public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 
 	private static final String PAGE_HEADER = "\n\n\n\n" + "CÂMARA DE VEREADORES DE JOINVILLE\\s*" + "\n\n" + "ESTADO DE SANTA CATARINA";
 	private String text;
+
+	Levenshtein levenCompare = new Levenshtein();
 
 	// FIXME This method is too long
 	@Override
@@ -155,11 +160,18 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		if (matcherBairro.find()) {
 			String bairroRaw = raw.substring(matcherBairro.start());
 			for (String bairro : BAIRROS)
-				if (cleanBairro(bairroRaw).contains(cleanBairro(bairro)))
+				if (levenComparePercent(cleanBairro(bairroRaw), cleanBairro(bairro)) < 0.2)
 					return bairro;
 		}
 
 		return "";
+	}
+
+	private double levenComparePercent(String a, String b) {
+		double distance = levenCompare.distance(a, b);
+		double ratio = distance / (max(a.length(), b.length()));
+
+		return ratio;
 	}
 
 	private String extractDescricao(String raw) {
@@ -211,6 +223,6 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 
 	// FIXME Give a better name to this method
 	private String cleanBairro(final String bairro) {
-		return withoutAccentuation(bairro).toUpperCase();
+		return withoutAccentuation(bairro).toUpperCase().replace("BAIRRO", "").replace(".", "").trim();
 	}
 }

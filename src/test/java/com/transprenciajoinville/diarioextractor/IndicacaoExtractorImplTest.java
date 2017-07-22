@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +135,6 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacao.getBairro(), equalTo("Bucarein"));
 	}
 
-	@Ignore
 	@Test
 	public void bairroWithoutSpaces() {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");

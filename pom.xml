@@ -57,6 +57,12 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>info.debatty</groupId>
+			<artifactId>java-string-similarity</artifactId>
+			<version>0.24</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
