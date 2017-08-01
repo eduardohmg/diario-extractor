@@ -18,4 +18,8 @@ With:
 
 ## Where are the PDF's to download?
 
-http://cvj.sc.gov.br/ > Atividades Legislativas > Diários das Sessões
+http://cvj.sc.gov.br/ > Atividades Legislativas > Diários das Sessões  
+
+Or just:
+
+http://legiscam.cvj.sc.gov.br/fusion/cvj/diarios.jsp
