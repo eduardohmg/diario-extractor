@@ -1,4 +1,4 @@
-package com.transprenciajoinville.diarioextractor.xlsxexporter;
+package com.diarioextractor.xlsxexporter;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.transprenciajoinville.diarioextractor.domain.Indicacao;
+import com.diarioextractor.domain.Indicacao;
 
 // FIXME Write unit tests
 public class WorkbookExportImpl implements WorkbookExport {

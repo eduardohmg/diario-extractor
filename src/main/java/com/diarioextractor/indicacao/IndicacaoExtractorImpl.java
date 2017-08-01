@@ -1,13 +1,13 @@
-package com.transprenciajoinville.diarioextractor.indicacao;
+package com.diarioextractor.indicacao;
 
-import static com.transprenciajoinville.diarioextractor.statics.Lists.BAIRROS;
-import static com.transprenciajoinville.diarioextractor.statics.Lists.VEREADORES;
-import static com.transprenciajoinville.diarioextractor.statics.Patterns.BAIRRO;
-import static com.transprenciajoinville.diarioextractor.statics.Patterns.HEADERS_ADENDO;
-import static com.transprenciajoinville.diarioextractor.statics.Patterns.INDICACOES;
-import static com.transprenciajoinville.diarioextractor.statics.Patterns.MATERIA_ORDEM;
-import static com.transprenciajoinville.diarioextractor.statics.Patterns.NUMBER;
-import static com.transprenciajoinville.diarioextractor.statics.Patterns.RUA;
+import static com.diarioextractor.statics.Lists.BAIRROS;
+import static com.diarioextractor.statics.Lists.VEREADORES;
+import static com.diarioextractor.statics.Patterns.BAIRRO;
+import static com.diarioextractor.statics.Patterns.HEADERS_ADENDO;
+import static com.diarioextractor.statics.Patterns.INDICACOES;
+import static com.diarioextractor.statics.Patterns.MATERIA_ORDEM;
+import static com.diarioextractor.statics.Patterns.NUMBER;
+import static com.diarioextractor.statics.Patterns.RUA;
 import static java.lang.Math.max;
 import static java.util.Arrays.asList;
 import static java.util.regex.Pattern.compile;
@@ -18,16 +18,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.stereotype.Component;
-
-import com.transprenciajoinville.diarioextractor.domain.Indicacao;
-import com.transprenciajoinville.diarioextractor.domain.Rua;
-import com.transprenciajoinville.diarioextractor.domain.Vereador;
+import com.diarioextractor.domain.Indicacao;
+import com.diarioextractor.domain.Rua;
+import com.diarioextractor.domain.Vereador;
 
 import info.debatty.java.stringsimilarity.Levenshtein;
 
 // FIXME Organize this class
-@Component(value = "IndicacaoExtractorImpl")
 public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 
 	private static final String PAGE_HEADER = "\n\n\n\n" + "CÂMARA DE VEREADORES DE JOINVILLE\\s*" + "\n\n" + "ESTADO DE SANTA CATARINA";
@@ -48,16 +45,19 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		List<String> indicacoesText = splitIndicacoes();
 		indicacoesText = removeFirst(indicacoesText);
 		List<Indicacao> indicacoes = new ArrayList<>();
+		
+		int count = 0;
+		
+		System.out.print("Extracted 0 indicacoes");
 
 		for (String indicacaoText : indicacoesText) {
 			Indicacao indicacao = extractIndicacao(indicacaoText);
 			indicacoes.add(indicacao);
-			// FIXME Remove sysout
-			System.out.println(indicacao.toString());
+			count++;
+			System.out.print("\rExtracted " + count + " indicacoes");
 		}
-
-		// FIXME Remove sysout
-		System.out.println("Qtde: " + indicacoes.size());
+		
+		System.out.println("");
 
 		return indicacoes;
 	}

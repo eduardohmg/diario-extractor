@@ -1,4 +1,4 @@
-package com.transprenciajoinville.diarioextractor;
+package com.diarioextractor;
 
 import static java.lang.System.getProperty;
 import static java.util.Arrays.asList;
@@ -7,32 +7,29 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import com.transprenciajoinville.diarioextractor.domain.Indicacao;
-import com.transprenciajoinville.diarioextractor.domain.Rua;
-import com.transprenciajoinville.diarioextractor.domain.Vereador;
-import com.transprenciajoinville.diarioextractor.indicacao.IndicacaoExtractor;
-import com.transprenciajoinville.diarioextractor.pdfextractor.PDFToText;
+import com.diarioextractor.domain.Indicacao;
+import com.diarioextractor.domain.Rua;
+import com.diarioextractor.domain.Vereador;
+import com.diarioextractor.indicacao.IndicacaoExtractor;
+import com.diarioextractor.indicacao.IndicacaoExtractorImpl;
+import com.diarioextractor.pdfextractor.PDFToText;
+import com.diarioextractor.pdfextractor.PDFToTextImpl;
 
 // FIXME Make tests for more cases
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class IndicacaoExtractorImplTest {
 
-	@Autowired
-	@Qualifier("PDFToTextImpl")
 	private PDFToText pdfExtractor;
-
-	@Autowired
-	@Qualifier("IndicacaoExtractorImpl")
 	private IndicacaoExtractor indicacaoExtractor;
+
+	@Before
+	public void init() {
+		pdfExtractor = new PDFToTextImpl();
+		indicacaoExtractor = new IndicacaoExtractorImpl();
+	}
 
 	@Test
 	public void sampleOne() {
@@ -152,7 +149,7 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Heriberto Petry").build())));
 		assertThat(indicacao.getBairro(), equalTo("João Costa"));
 	}
-	
+
 	@Test
 	public void bairroWrongWritten() {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");
@@ -169,7 +166,7 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Nara Leão").build())));
 		assertThat(indicacao.getBairro(), equalTo("Ulysses Guimarães"));
 	}
-	
+
 	@Ignore
 	@Test
 	public void moreThanOneStreet() {

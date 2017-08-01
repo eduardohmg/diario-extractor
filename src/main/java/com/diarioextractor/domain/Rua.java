@@ -1,6 +1,6 @@
-package com.transprenciajoinville.diarioextractor.domain;
+package com.diarioextractor.domain;
 
-import com.transprenciajoinville.diarioextractor.statics.StreetTypes;
+import com.diarioextractor.statics.StreetTypes;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

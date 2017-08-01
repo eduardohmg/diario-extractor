@@ -1,4 +1,4 @@
-package com.transprenciajoinville.diarioextractor.statics;
+package com.diarioextractor.statics;
 
 import static java.util.Arrays.asList;
 

@@ -1,4 +1,4 @@
-package com.transprenciajoinville.diarioextractor.xlsxexporter;
+package com.diarioextractor.xlsxexporter;
 
 import java.io.File;
 import java.io.FileOutputStream;

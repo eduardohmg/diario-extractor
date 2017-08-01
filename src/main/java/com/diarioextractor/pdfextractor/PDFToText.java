@@ -1,4 +1,4 @@
-package com.transprenciajoinville.diarioextractor.pdfextractor;
+package com.diarioextractor.pdfextractor;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package com.transprenciajoinville.diarioextractor.domain;
+package com.diarioextractor.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,10 +1,10 @@
-package com.transprenciajoinville.diarioextractor.xlsxexporter;
+package com.diarioextractor.xlsxexporter;
 
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.transprenciajoinville.diarioextractor.domain.Indicacao;
+import com.diarioextractor.domain.Indicacao;
 
 public interface WorkbookExport {
 
