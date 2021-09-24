@@ -100,7 +100,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 
 		indicacao.setVereador(items[1]);
 
-		String numero[] = items[0].split("/");
+		String numero[] = items[0].replace(" ", "").split("/");
 		indicacao.setNumber(numero[0]);
 		indicacao.setYear(numero[1]);
 

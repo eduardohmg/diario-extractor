@@ -43,7 +43,7 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacao.getNumber(), equalTo("16404"));
 		assertThat(indicacao.getYear(), equalTo("2021"));
 		assertThat(indicacao.getVereador().toUpperCase(), equalTo("Cassiano Ucker".toUpperCase()));
-		assertThat(indicacao.getDescricao(), equalTo("Substituição de uma placa de velocidade na Rua Paranaense no Bairro Comasa, placa foi alterada (30 para 80 km/h), pichada colocando em risco os pedestres e principalmente as crianças que nesta rua fica brincando, por ser uma rua de pouco movimento."));
+		assertThat(indicacao.getDescricao(), equalTo("Substituição de uma placa de velocidade na Rua Paranaense no Bairro Comasa, placa foi alterada (30 para 80 km/h), pichada colocando em risco os pedestres e principalmente as crianças que nesta rua fica brincando, por ser uma rua de pouco movimento. "));
 		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Paranaense").build())));
 		assertThat(indicacao.getBairro(), equalTo("Comasa"));
 	}
