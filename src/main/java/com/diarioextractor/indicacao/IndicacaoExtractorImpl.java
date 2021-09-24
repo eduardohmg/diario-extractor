@@ -6,21 +6,17 @@ import static com.diarioextractor.statics.Patterns.BAIRRO;
 import static com.diarioextractor.statics.Patterns.HEADERS_ADENDO;
 import static com.diarioextractor.statics.Patterns.INDICACOES;
 import static com.diarioextractor.statics.Patterns.MATERIA_ORDEM;
-import static com.diarioextractor.statics.Patterns.NUMBER;
 import static com.diarioextractor.statics.Patterns.RUA;
 import static java.lang.Math.max;
 import static java.util.Arrays.asList;
-import static java.util.regex.Pattern.compile;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.diarioextractor.domain.Indicacao;
 import com.diarioextractor.domain.Rua;
-import com.diarioextractor.domain.Vereador;
 
 import info.debatty.java.stringsimilarity.Levenshtein;
 
