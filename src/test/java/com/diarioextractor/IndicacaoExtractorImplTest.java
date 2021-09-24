@@ -43,7 +43,7 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacao.getNumber(), equalTo("16404"));
 		assertThat(indicacao.getYear(), equalTo("2021"));
 		assertThat(indicacao.getVereador().toUpperCase(), equalTo("Cassiano Ucker".toUpperCase()));
-		assertThat(indicacao.getDescricao(), equalTo("Substituição de uma placa de velocidade na Rua Paranaense no Bairro Comasa, placa foi alterada (30 para 80 km/h), pichada colocando em risco os pedestres e principalmente as crianças que nesta rua fica brincando, por ser uma rua de pouco movimento. "));
+		assertThat(indicacao.getDescricao(), equalTo("Substituição de uma placa de velocidade na Rua Paranaense no Bairro Comasa, placa foi alterada (30 para 80 km/h), pichada colocando em risco os pedestres e principalmente as crianças que nesta rua fica brincando, por ser uma rua de pouco movimento."));
 		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Paranaense").build())));
 		assertThat(indicacao.getBairro(), equalTo("Comasa"));
 	}
@@ -53,16 +53,16 @@ public class IndicacaoExtractorImplTest {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário");
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
-		Indicacao indicacao = indicacoes.get(21);
+		Indicacao indicacao = indicacoes.get(39);
 
-		assertThat(indicacoes.size(), equalTo(170));
+		assertThat(indicacoes.size(), equalTo(53));
 
-		assertThat(indicacao.getNumber(), equalTo("8552"));
-		assertThat(indicacao.getYear(), equalTo("2017"));
-		assertThat(indicacao.getVereador(), equalTo(asList(Vereador.builder().name("Wilson Paraiba").build())));
-		assertThat(indicacao.getDescricao(), equalTo("Operação tapa-buraco na Rua dos Tucanos, nas proximidades do nº 392 e 408, no Bairro Jardim Iririu."));
-		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("dos Tucanos").build())));
-		assertThat(indicacao.getBairro(), equalTo("Jardim Iririú"));
+		assertThat(indicacao.getNumber(), equalTo("16443"));
+		assertThat(indicacao.getYear(), equalTo("2021"));
+		assertThat(indicacao.getVereador().toUpperCase(), equalTo("Kiko do Restaurante".toUpperCase()));
+		assertThat(indicacao.getDescricao(), equalTo("Ensaibramento e patrolamento na parte não pavimentada da Rua Ernesto Romanus, no Bairro América."));
+		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Ernesto Romanus").build())));
+		assertThat(indicacao.getBairro(), equalTo("América"));
 	}
 
 	@Test
