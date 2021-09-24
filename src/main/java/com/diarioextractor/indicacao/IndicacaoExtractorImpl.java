@@ -117,7 +117,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	}
 
 	private String removeSpaceAndBreakLines(String text) {
-		return text.replaceAll("\\n", "").replaceAll("^\\s*", "");
+		return text.replaceAll("\\n", "").replaceAll("^\\s*", "").trim();
 	}
 
 	private String extractBairro(String raw) {
@@ -182,7 +182,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 				rua = rua.substring(0, raw.substring(matcherRua.start()).indexOf(",")).substring(3);
 		}
 
-		return rua.trim().replaceAll("no Bairro*.*", "").replaceAll(" ", "");
+		return rua.replaceAll("no Bairro*.*", "").trim();
 	}
 
 	private String withoutAccentuation(final String text) {
