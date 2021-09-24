@@ -126,8 +126,10 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		if (matcherBairro.find()) {
 			String bairroRaw = raw.substring(matcherBairro.start());
 			for (String bairro : BAIRROS)
-				if (levenComparePercent(cleanBairro(bairroRaw), cleanBairro(bairro)) < 0.2)
+				if (bairroRaw.contains(bairro))
 					return bairro;
+//				if (levenComparePercent(cleanBairro(bairroRaw), cleanBairro(bairro)) < 0.2)
+//					return bairro;
 		}
 
 		return "";
@@ -180,7 +182,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 				rua = rua.substring(0, raw.substring(matcherRua.start()).indexOf(",")).substring(3);
 		}
 
-		return rua.trim();
+		return rua.trim().replaceAll("no Bairro*.*", "").replaceAll(" ", "");
 	}
 
 	private String withoutAccentuation(final String text) {
