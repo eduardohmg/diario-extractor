@@ -21,7 +21,7 @@ public class Patterns {
 	private static final String REG_RUA = "(Rua)";
 	public static final Pattern RUA = compile(REG_RUA);
 
-	private static final String REG_BAIRRO = "(?i)(Bairro)";
+	private static final String REG_BAIRRO = "(Bairro)";
 	public static final Pattern BAIRRO = compile(REG_BAIRRO);
 
 	private static final String REG_NUMBER = "(-)";

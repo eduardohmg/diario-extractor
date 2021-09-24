@@ -45,9 +45,9 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 		List<String> indicacoesText = splitIndicacoes();
 		indicacoesText = removeFirst(indicacoesText);
 		List<Indicacao> indicacoes = new ArrayList<>();
-		
+
 		int count = 0;
-		
+
 		System.out.print("Extracted 0 indicacoes");
 
 		for (String indicacaoText : indicacoesText) {
@@ -56,7 +56,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 			count++;
 			System.out.print("\rExtracted " + count + " indicacoes");
 		}
-		
+
 		System.out.println("");
 
 		return indicacoes;
@@ -100,40 +100,21 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	private Indicacao extractIndicacao(String raw) {
 
 		Indicacao indicacao = new Indicacao();
+		String[] items = raw.split(" - ");
 
-		int fim = 0;
+		indicacao.setVereador(items[1]);
 
-		String regexVereadores = "-.*.-";
-		Pattern patternVereadores = compile(regexVereadores);
-		Matcher matcherVereadores = patternVereadores.matcher(raw);
-		String secaoVereadores = "";
-
-		while (matcherVereadores.find())
-			fim = matcherVereadores.end();
-
-		secaoVereadores = raw.substring(0, fim);
-
-		String[] vereadores = secaoVereadores.split(", ");
-
-		for (String vereador : vereadores) {
-			for (String nome : VEREADORES)
-				if (vereador.toUpperCase().contains(nome.toUpperCase()))
-					indicacao.addVereador(Vereador.builder().name(nome).build()); // FIXME Get active vereador from the db by name
-		}
-
-		String numero[] = extractNumber(raw).split("/");
+		String numero[] = items[0].split("/");
 		indicacao.setNumber(numero[0]);
 		indicacao.setYear(numero[1]);
 
-		raw = removeSpaceAndBreakLines(raw);
-
-		String descricao = extractDescricao(raw);
+		String descricao = removeSpaceAndBreakLines(items[items.length-1]);
 		indicacao.setDescricao(descricao);
 
-		String rua = extractRua(raw);
+		String rua = extractRua(descricao);
 		indicacao.setRuas(asList(Rua.builder().name(rua).build())); // FIXME Verify if already exists this street e create method add
 
-		String bairro = extractBairro(raw);
+		String bairro = extractBairro(descricao);
 		indicacao.setBairro(bairro);
 
 		return indicacao;
@@ -141,17 +122,6 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 
 	private String removeSpaceAndBreakLines(String text) {
 		return text.replaceAll("\\n", "").replaceAll("^\\s*", "");
-	}
-
-	private String extractNumber(String text) {
-		String number = "";
-
-		Matcher matcherNumero = NUMBER.matcher(text);
-
-		if (matcherNumero.find())
-			number = text.substring(0, matcherNumero.start());
-
-		return number.trim();
 	}
 
 	private String extractBairro(String raw) {

@@ -30,7 +30,7 @@ public class WorkbookExportImpl implements WorkbookExport {
 
 		cell = row.createCell(colnum++);
 		cell.setCellValue("Número");
-		
+
 		cell = row.createCell(colnum++);
 		cell.setCellValue("Ano");
 
@@ -59,14 +59,14 @@ public class WorkbookExportImpl implements WorkbookExport {
 
 			cell = row.createCell(colnum++);
 			cell.setCellValue(ind.getNumber());
-			
+
 			cell = row.createCell(colnum++);
 			cell.setCellValue(ind.getYear());
 
 			colnum++; // Ignoring date column
 
 			cell = row.createCell(colnum++);
-			String vereadores = ind.vereadoresToString();
+			String vereadores = ind.getVereador();
 
 			cell.setCellValue(vereadores);
 

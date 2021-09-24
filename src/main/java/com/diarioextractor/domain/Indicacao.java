@@ -21,9 +21,7 @@ public class Indicacao {
 	private long id;
 	private String number;
 	private String year;
-
-	@Getter(AccessLevel.NONE)
-	private List<Vereador> vereadores;
+	private String vereador;
 
 	private String descricao;
 	private List<Rua> ruas;
@@ -31,45 +29,20 @@ public class Indicacao {
 	// FIXME Add "justificativa" and find and extract it from pdf
 	// FIXME Add "date" and extract it
 
-	public void addVereador(Vereador vereador) {
-		if (this.vereadores == null)
-			setVereadores(new ArrayList<>());
-		this.vereadores.add(vereador);
-	}
-
-	public List<Vereador> getVereadores() {
-		if (this.vereadores == null)
-			this.vereadores = new ArrayList<>();
-		return this.vereadores;
-	}
-
 	@Override
 	public String toString() {
 		String indicacao = getNumber() + "/";
-				
-		indicacao += getYear() + " - ";
+		String patternSeparate = " - ";
 
-		indicacao += vereadoresToString();
-		indicacao += " - " + getDescricao();
-		indicacao += " - " + ruasToString();
+		indicacao += getYear() + patternSeparate;
 
-		indicacao += " - " + getBairro();
+		indicacao += patternSeparate + getVereador();
+		indicacao += patternSeparate + getDescricao();
+		indicacao += patternSeparate + ruasToString();
+
+		indicacao += patternSeparate + getBairro();
 
 		return indicacao;
-	}
-
-	public String vereadoresToString() {
-		String text = "";
-
-		if (getVereadores().isEmpty())
-			return "";
-
-		for (Vereador vereador : getVereadores())
-			text += vereador.getName() + " - ";
-
-		text = text.substring(0, text.length() - 3);
-
-		return text;
 	}
 
 	public String ruasToString() {
