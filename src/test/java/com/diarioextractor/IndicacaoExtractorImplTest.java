@@ -121,16 +121,16 @@ public class IndicacaoExtractorImplTest {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário");
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
-		Indicacao indicacao = indicacoes.get(169);
+		Indicacao indicacao = indicacoes.get(52);
 
-		assertThat(indicacoes.size(), equalTo(170));
+		assertThat(indicacoes.size(), equalTo(53));
 
-		assertThat(indicacao.getNumber(), equalTo("8944"));
-		assertThat(indicacao.getYear(), equalTo("2017"));
-		assertThat(indicacao.getVereador(), equalTo("Maurício Peixer"));
-		assertThat(indicacao.getDescricao(), equalTo("Roçada e recolhimento de entulhos na Rua Afonso Pena, próximo ao nº 235, no Bairro Bucarein."));
-		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Afonso Pena").build())));
-		assertThat(indicacao.getBairro(), equalTo("Bucarein"));
+		assertThat(indicacao.getNumber(), equalTo("16456"));
+		assertThat(indicacao.getYear(), equalTo("2021"));
+		assertThat(indicacao.getVereador(), equalTo("Nado"));
+		assertThat(indicacao.getDescricao(), equalTo("Troca de meio-fio na rua Antônio Geraldo Pereira, nº 68, bairro Costa e Silva."));
+		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Antônio Geraldo Pereira").build())));
+		assertThat(indicacao.getBairro(), equalTo("Costa e Silva"));
 	}
 
 	@Test
