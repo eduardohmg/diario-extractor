@@ -1,32 +1,27 @@
 package com.diarioextractor.indicacao;
 
 import static com.diarioextractor.statics.Lists.BAIRROS;
-import static com.diarioextractor.statics.Lists.VEREADORES;
 import static com.diarioextractor.statics.Patterns.BAIRRO;
 import static com.diarioextractor.statics.Patterns.HEADERS_ADENDO;
 import static com.diarioextractor.statics.Patterns.INDICACOES;
 import static com.diarioextractor.statics.Patterns.MATERIA_ORDEM;
 import static com.diarioextractor.statics.Patterns.RUA;
-import static java.lang.Math.max;
 import static java.util.Arrays.asList;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 
 import com.diarioextractor.domain.Indicacao;
 import com.diarioextractor.domain.Rua;
-
-import info.debatty.java.stringsimilarity.Levenshtein;
 
 // FIXME Organize this class
 public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 
 	private static final String PAGE_HEADER = "\n\n\n\n" + "CÂMARA DE VEREADORES DE JOINVILLE\\s*" + "\n\n" + "ESTADO DE SANTA CATARINA";
 	private String text;
-
-	Levenshtein levenCompare = new Levenshtein();
 
 	// FIXME This method is too long
 	@Override
@@ -128,43 +123,9 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 			for (String bairro : BAIRROS)
 				if (bairroRaw.contains(bairro.toLowerCase()))
 					return bairro;
-//				if (levenComparePercent(cleanBairro(bairroRaw), cleanBairro(bairro)) < 0.2)
-//					return bairro;
 		}
 
 		return "";
-	}
-
-	private double levenComparePercent(String a, String b) {
-		double distance = levenCompare.distance(a, b);
-		double ratio = distance / (max(a.length(), b.length()));
-
-		return ratio;
-	}
-
-	private String extractDescricao(String raw) {
-		String descricao = "";
-		String[] indSplit = raw.split(" - ");
-
-		boolean canAdd = false;
-
-		for (int i = 3; i < indSplit.length; i++) {
-			boolean achou = false;
-			// FIXME Extract FOR loop
-			// FIXME Reduce cyclomatic complexity
-			for (String nome : VEREADORES) {
-				if (indSplit[i].toUpperCase().contains(nome.toUpperCase())) {
-					achou = true;
-					break;
-				}
-			}
-			if (achou && !canAdd || indSplit[i].length() <= 4)
-				continue;
-			canAdd = true;
-			descricao += indSplit[i];
-		}
-
-		return descricao.trim();
 	}
 
 	// FIXME Sometimes it has more than one street
