@@ -121,12 +121,12 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	}
 
 	private String extractBairro(String raw) {
-		Matcher matcherBairro = BAIRRO.matcher(raw);
+		Matcher matcherBairro = BAIRRO.matcher(raw.toLowerCase());
 
 		if (matcherBairro.find()) {
-			String bairroRaw = raw.substring(matcherBairro.start());
+			String bairroRaw = raw.substring(matcherBairro.start()).toLowerCase();
 			for (String bairro : BAIRROS)
-				if (bairroRaw.contains(bairro))
+				if (bairroRaw.contains(bairro.toLowerCase()))
 					return bairro;
 //				if (levenComparePercent(cleanBairro(bairroRaw), cleanBairro(bairro)) < 0.2)
 //					return bairro;
@@ -171,7 +171,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	private String extractRua(final String raw) {
 		String rua = "";
 
-		Matcher matcherRua = RUA.matcher(raw);
+		Matcher matcherRua = RUA.matcher(raw.toLowerCase());
 
 		if (matcherRua.find()) {
 			rua = raw.substring(matcherRua.start());
