@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import com.diarioextractor.domain.Indicacao;
 import com.diarioextractor.domain.Rua;
-import com.diarioextractor.domain.Vereador;
 import com.diarioextractor.indicacao.IndicacaoExtractor;
 import com.diarioextractor.indicacao.IndicacaoExtractorImpl;
 import com.diarioextractor.pdfextractor.PDFToText;
@@ -94,7 +93,7 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacao.getNumber(), equalTo("16465"));
 		assertThat(indicacao.getYear(), equalTo("2021"));
 		assertThat(indicacao.getVereador(), equalTo("Nado"));
-		assertThat(indicacao.getDescricao(), equalTo("Ensaibramento e patrolamento da Rua Canoas, em toda a suaextensão, no Bairro Jardim Iririú."));
+		assertThat(indicacao.getDescricao(), equalTo("Ensaibramento e patrolamento da Rua Canoas, em toda a sua extensão, no Bairro Jardim Iririú."));
 		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Canoas").build())));
 		assertThat(indicacao.getBairro(), equalTo("Jardim Iririú"));
 	}
@@ -111,7 +110,7 @@ public class IndicacaoExtractorImplTest {
 		assertThat(indicacao.getNumber(), equalTo("16526"));
 		assertThat(indicacao.getYear(), equalTo("2021"));
 		assertThat(indicacao.getVereador(), equalTo("Nado"));
-		assertThat(indicacao.getDescricao(), equalTo("Operação tapa-buraco na Rua 1º de maio, em toda sua extensão, poisexistem vários buracos, no Bairro Boa vista.")); //FIXME resolver problema de não ter espaço ao remover \n
+		assertThat(indicacao.getDescricao(), equalTo("Operação tapa-buraco na Rua 1º de maio, em toda sua extensão, pois existem vários buracos, no Bairro Boa vista.")); //FIXME resolver problema de não ter espaço ao remover \n
 		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("1º de maio").build())));
 		assertThat(indicacao.getBairro(), equalTo("Boa Vista"));
 	}
@@ -138,16 +137,16 @@ public class IndicacaoExtractorImplTest {
 		String diarioText = pdfExtractor.fromPath(getProperty("user.dir") + "/src/test/resources/pdfs/Diário2");
 
 		List<Indicacao> indicacoes = indicacaoExtractor.extractFromText(diarioText);
-		Indicacao indicacao = indicacoes.get(22);
+		Indicacao indicacao = indicacoes.get(55);
 
-		assertThat(indicacoes.size(), equalTo(171));
+		assertThat(indicacoes.size(), equalTo(70));
 
-		assertThat(indicacao.getNumber(), equalTo("8953"));
-		assertThat(indicacao.getYear(), equalTo("2017"));
-		assertThat(indicacao.getVereador(), equalTo("Tânia Larson"));
-		assertThat(indicacao.getDescricao(), equalTo("Limpeza das bocas de lobo da Rua Heriberto Petry, no Bairro JoãoCosta."));
-		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Heriberto Petry").build())));
-		assertThat(indicacao.getBairro(), equalTo("João Costa"));
+		assertThat(indicacao.getNumber(), equalTo("16512"));
+		assertThat(indicacao.getYear(), equalTo("2021"));
+		assertThat(indicacao.getVereador(), equalTo("Kiko do Restaurante"));
+		assertThat(indicacao.getDescricao(), equalTo("Pavimentação asfáltica na Rua Filadélfia, no Bairro Paranaguamirim."));
+		assertThat(indicacao.getRuas(), equalTo(asList(Rua.builder().name("Filadélfia").build())));
+		assertThat(indicacao.getBairro(), equalTo("Paranaguamirim"));
 	}
 
 	@Test

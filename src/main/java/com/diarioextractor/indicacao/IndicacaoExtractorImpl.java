@@ -112,7 +112,7 @@ public class IndicacaoExtractorImpl implements IndicacaoExtractor {
 	}
 
 	private String removeSpaceAndBreakLines(String text) {
-		return text.replaceAll("\\n", "").replaceAll("^\\s*", "").trim();
+		return text.replaceAll(" \\n", "").replaceAll("\\n", " ").replaceAll("^\\s*", "").trim();
 	}
 
 	private String extractBairro(String raw) {
